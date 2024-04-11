@@ -8,26 +8,34 @@
 
 <div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
 
-  {# Breadcrumbs #}
+<div class="flex">
+    {# Breadcrumbs #}
     {{ breadcrumbs.breadcrumbs([
         {'label': 'Home', 'url': path('app_home')},
         {'label': 'Posts'}
     ]) }}
   {# \breadcrumbs #}
-  <hr  class="mb-3"/>
-
-    <div class="w-full flex justify-end items-end">
+  <div class="w-full flex justify-end items-end">
       <a href="{{ path('post_create') }}" class="bg-green-500 hover:bg-green-700 text-white text-sm py-1 px-2 rounded">
           <i class="fa-solid fa-plus"></i>
           Crear Post
         </a>
     </div>
+</div>
+  <hr  class="mb-3"/>
+
+    {# <div class="w-full flex justify-end items-end">
+      <a href="{{ path('post_create') }}" class="bg-green-500 hover:bg-green-700 text-white text-sm py-1 px-2 rounded">
+          <i class="fa-solid fa-plus"></i>
+          Crear Post
+        </a>
+    </div> #}
     <div class="w-full flex">
        <div class="w-full">
         <label class="block text-gray-700 text-sm font-bold" for="search">
           Status
         </label>
-        <select name="status" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5">
+        <select name="status" class="bg-white w-full border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5">
           <option value="" disabled selected>Choose a status</option>
           <option value="draft">Draft</option>
           <option value="published">Published</option>
@@ -76,8 +84,13 @@
           <div class="bg-white rounded-md flex gap-2 p-2 h-full hover:cursor-pointer hover:shadow-lg shadow relative">
             <img src="{{ post.getUrl() }}" class="h-28 w-40 object-cover border border-gray-100"></img>
             <div class="w-full">
-              <p class="text-xs text-gray-400 mt-1">Fecha de Publicación: {{ post.creationDate|date('d/m/Y') }}</p>
-              <h2 class="text-xl font-bold mb-3" title="{{ post.title }}">{{ post.title }}</h2>
+              <div class="w-full flex flex-col md:flex-row justify-between gap-2">
+                <div>
+                <span class="{{post.getCategory().getColor() }} text-xs mb-1 px-2 py-1 rounded-md">{{post.getCategory().getName() }}</span>
+                </div>
+                <p class="text-xs text-gray-400 mt-1">Fecha de Publicación: {{ post.creationDate|date('d/m/Y') }}</p>
+              </div>
+              <h2 class="text-base mb-1" title="{{ post.title }}">{{ post.title }}</h2>
               <p class="text-sm text-gray-400"> {{ post.description }} </p>
               <p class="text-sm text-gray-600"><i>Author: {{ post.getUser().getName() }} </i></p>
             
@@ -99,6 +112,17 @@
               {% if post.status == 'hidden' %}
                   <p class="bg-gray-400 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
               {% endif %}
+
+              <div class="flex gap-4">
+                <div class="flex justify-center items-center gap-1">
+                  <p class="text-gray-500 text-sm">{{ post.getComments()|length }}</p>
+                  <i class="fa-solid fa-comment text-gray-500"></i>
+                </div>
+                <div class="flex justify-center items-center gap-1">
+                  <p class="text-gray-500 text-sm">{{ post.getViews() }}</p>
+                  <i class="fa-solid fa-chart-simple text-gray-500"></i>
+                </div>
+              </div>
 
               <div class="w-full flex justify-end mt-2">
                <a href="{{ path('post_edit', {'id': post.getId()}) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded">

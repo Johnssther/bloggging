@@ -7,6 +7,8 @@
 {% import 'breadcrumbs.html.twig' as breadcrumbs %}
 
 <div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
+  <div class="flex w-full">
+
   {# Breadcrumbs #}
     {{ breadcrumbs.breadcrumbs([
         {'label': 'Home', 'url': path('app_home')},
@@ -14,6 +16,7 @@
         {'label': 'Create'}
     ]) }}
   {# \breadcrumbs #}
+  </div>
   <div class="w-full bg-white rounded-lg p-3 flex flex-col gap-2">
   <p>{{ post is defined ? 'Edit' : 'Create' }} Post</p>
 
@@ -84,6 +87,16 @@
       <div>
         <label class="block text-gray-700 text-sm font-bold" for="description">Descriptión</label>
         <textarea name="description" id="description" type="text" placeholder="Description" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ post.description ?? '' }}</textarea>
+      </div>
+      <div>
+        <label class="block text-gray-700 text-sm font-bold" for="tag">Tags (tag1, tag2, tag3, ...)</label>
+         {% if post is defined %}
+          <input name="tag" id="tag" type="text" value="{{ post.getTags()|join(', ') }}" placeholder="Separe por coma (,) cada Tag" class=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input>
+        {% else %}
+          <input name="tag" id="tag" type="text" placeholder="Separe por coma (,) cada Tag" class=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input>
+        {% endif %}
+
+        {# <input name="tag" id="tag" type="text" value="{{ post.getTags()|join(', ') ?? '' }}" placeholder="Separe por coma (,) cada Tag" class=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input> #}
       </div>
       <div>
         <label class="block text-gray-700 text-sm font-bold" for="url">Url Imagen principal</label>

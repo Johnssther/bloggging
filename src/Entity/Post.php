@@ -58,6 +58,15 @@ class Post
     #[ORM\ManyToOne(inversedBy: 'posts')]
     private ?Category $category = null;
 
+    #[ORM\Column(type: Types::ARRAY)]
+    private array $tags = [];
+
+    #[ORM\Column(nullable: true)]
+    private ?array $tags1 = null;
+
+    #[ORM\Column]
+    private ?int $views = null;
+
     public function __construct()
     {
         $this->interactions = new ArrayCollection();
@@ -261,6 +270,42 @@ class Post
     public function setCategory(?Category $category): static
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getTags(): array
+    {
+        return $this->tags;
+    }
+
+    public function setTags(array $tags): static
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    public function getTags1(): ?array
+    {
+        return $this->tags1;
+    }
+
+    public function setTags1(?array $tags1): static
+    {
+        $this->tags1 = $tags1;
+
+        return $this;
+    }
+
+    public function getViews(): ?int
+    {
+        return $this->views;
+    }
+
+    public function setViews(int $views): static
+    {
+        $this->views = $views;
 
         return $this;
     }

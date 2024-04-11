@@ -15,6 +15,7 @@
 
 <div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col justify-center items-center">
 
+  <div class="flex w-full">
   {# Breadcrumbs #}
     {{ breadcrumbs.breadcrumbs([
         {'label': 'Home', 'url': path('app_home')},
@@ -23,8 +24,7 @@
         {'label':  post.getId() }
     ]) }}
   {# \breadcrumbs #}
-
-    <div class="w-full flex justify-end items-end gap-2">
+      <div class="w-full flex justify-end items-end gap-2">
       <a href="{{ path('post_edit', {'id': post.getId()}) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded">
           <i class="fa-solid fa-pen-to-square"></i>
           Edit Post
@@ -38,14 +38,18 @@
       </form>
 
     </div class="flex gap-2">
+</div>
+
 
       <div class="w-3/4 bg-white rounded-lg">
         <div class="p-4">
             <h2 class="text-4xl font-semibold mb-2">{{ post.title() }}</h2>
-          <div class="flex gap-2 my-2">
-            <span class="bg-yellow-400 text-xs px-2 py-1 rounded-md">debate</span>
-            <span class="bg-yellow-400 text-xs px-2 py-1 rounded-md">opinión</span>
-            <span class="bg-yellow-400 text-xs px-2 py-1 rounded-md">entretenimiento</span>
+          <div class="flex gap-2 flex-wrap my-2">
+            {% for tag in post.getTags() %}
+                  <div>
+                  <span class="bg-yellow-400 text-xs px-2 py-1 rounded-md w-full" style="white-space: nowrap;">{{ tag }}</span>
+                  </div>
+            {% endfor %}
           </div>
             
             <img src="{{ post.getUrl() }}" class="h-96 w-full object-cover"></img>

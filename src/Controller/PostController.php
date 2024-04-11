@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use App\Entity\{User, Comment, Post};
+use App\Entity\{User, Comment, Post, Category};
 
 class PostController extends AbstractController
 {
@@ -52,10 +52,11 @@ class PostController extends AbstractController
     {
         $postData = $request->request->all();
         $slug = $this->generateSlug($postData['title']);
+        $arrayTags = explode(", ", $postData['tag']);
 
-        
         $user = $this->getUser();
         $user = $this->em->getRepository(User::class)->find($user->getId());
+        $category = $this->em->getRepository(Category::class)->find(1);
 
         $post = new Post();
         $post->setTitle($postData['title']);
@@ -65,6 +66,9 @@ class PostController extends AbstractController
         $post->setStatus($postData['status']);
         $post->setContent("");
         $post->setType('opinion');
+        $post->setViews(0);
+        $post->setTags($arrayTags);
+        $post->setCategory($category);
         $post->setCreationDate(new \DateTime());
         $post->setUser($user);
 
@@ -79,6 +83,7 @@ class PostController extends AbstractController
     {
         $postData = $request->request->all();
         $slug = $this->generateSlug($postData['title']);
+        $arrayTags = explode(", ", $postData['tag']);
 
         $post->setTitle($postData['title']);
         $post->setDescription($postData['description']);
@@ -88,6 +93,7 @@ class PostController extends AbstractController
         $post->setContent($postData['content']);
         $post->setType('opinion');
         $post->setCreationDate(new \DateTime());
+        $post->setTags($arrayTags);
 
         $this->em->persist($post);
         $this->em->flush();

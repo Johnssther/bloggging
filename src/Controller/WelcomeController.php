@@ -53,6 +53,13 @@ class WelcomeController extends AbstractController
         $post = $this->em->getRepository(Post::class)->findOneBy(['slug' => $slug]);
         $posts = $this->em->getRepository(Post::class)->findBy(['status' => 'published']);
 
+        // update post view
+        if($this->getUser() == null) {
+            $post->setViews($post->getViews() + 1);
+            $this->em->persist($post);
+            $this->em->flush($post);
+        }
+
         // form comment
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
