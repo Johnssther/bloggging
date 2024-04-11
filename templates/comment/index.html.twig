@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
+    <h2 class="font-bold text-lg">Comments</h2>
+
+<div class="relative bg-green-600">
+    <table class="w-full text-sm text-left text-gray-500">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Content
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in comments %}
+            <tr class="bg-white border-b">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
+                    <p>{{ comment.Content}}</p>
+                    <p class="text-gray-500 text-sm mt-3"><i>Post: {{ comment.getPost().getTitle() }}</i></p>
+                </th>
+                <td class="px-6 py-4">
+                     <div class="flex gap-1">
+                        <button title="Aprove Comment" class="text-blue-500 hover:text-blue-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-check"></i></button>
+                        <button title="Remove Comment" class="text-red-500 hover:text-red-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-trash"></i></button>
+                        <button title="Locked Comment" class="text-yellow-500 hover:text-yellow-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-lock"></i></button>
+                        <button title="Redirect to Post" class="text-green-500 hover:text-yellow-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+  
+</div>
+
+{% endblock %}

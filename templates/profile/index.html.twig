@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto pt-3 flex gap-2 flex-col h-screen relative">
+  <div class="w-full bg-white shadow rounded-lg">
+    <img class="h-32 w-full object-cover rounded-se-lg rounded-ss-lg" src="https://cdn.pixabay.com/photo/2015/10/09/21/12/stylish-979952_1280.jpg"></img>
+      <div class="p-3">
+        <div class="text-center">
+        <img class="w-32 h-32 mx-auto rounded-full mb-4" src="{{ user.getUrlProfile() }}" alt="{{ user.getName() }}">
+        <h2 class="text-2xl font-bold text-gray-800">{{ user.getName() }}</h2>
+        <p class="text-gray-600">{{ user.getEmail() }}</p>
+      </div>
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold">About me</h3>
+        <hr class="my-2.5">
+        <div class="flex justify-between items-center text-gray-700">
+          <div class="flex flex-col gap-3">
+            <p>{{ user.getAboutme() }}</p>
+          </div>
+        </div>
+      </div>
+      <div class="mt-6">
+        <h3 class="text-lg font-semibold">Personal Information</h3>
+        <hr class="my-2.5">
+        <div class="flex justify-between items-center text-gray-700">
+          <div class="flex flex-col gap-3">
+            <p><span class="font-semibold">ID:</span> {{ user.getId() }}</p>
+            <p><span class="font-semibold">Full Name:</span> {{ user.getName() }} {{ user.getLastName() }}</p>
+            <p><span class="font-semibold">Email:</span> {{ user.getEmail() }}</p>
+            <p><span class="font-semibold">Roles:</span> {{user.getRoles()|join(', ')}}</p>
+            <p><span class="font-semibold">Posts Realizados:</span> {{user.getPosts()|length}}</p>
+          </div>
+          <a href="{{path('profile_create')}}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none focus:ring focus:ring-blue-200">Editar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

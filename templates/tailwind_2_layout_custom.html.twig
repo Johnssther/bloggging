@@ -1,0 +1,38 @@
+{% block form_row %}
+    <div class="flex flex-col gap-2">
+       <div class="flex flex-col">
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+       </div>
+        {{ form_errors(form) }}
+    </div>
+{% endblock form_row %}
+
+{%- block text_widget -%}
+    <input {{ block('widget_attributes') }} class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-9 p-2.5" />
+{%- endblock text_widget -%}
+
+{%- block integer_widget -%}
+    <input {{ block('widget_attributes') }} class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full h-9 p-2.5" />
+{%- endblock integer_widget -%}
+
+{%- block textarea_widget -%}
+    <textarea {{ block('widget_attributes') }} class="appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ form.vars.value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{%- block button_widget -%}
+    <div class="w-full flex justify-end items-center mt-2">
+        <button type="{{ type|default('submit') }}" {{ block('button_attributes') }} class="bg-green-500 hover:bg-green-700 text-white text-sm py-1 px-2 rounded">
+        <i class="fa-solid fa-plus"></i>
+        {{ label|default('Submit') }}
+    </button>
+    </div>
+{%- endblock button_widget -%}
+{# 
+{%- block form_label -%}
+        <label class="text-gray-900 font-bold text-sm" {{ block('button_attributes') }}>{{ label|default('Custom Label') }}</label>
+{%- endblock form_label -%} #}
+
+{%- block checkbox_widget -%}
+    <input type="checkbox" {{ block('widget_attributes') }} class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+{%- endblock checkbox_widget -%}

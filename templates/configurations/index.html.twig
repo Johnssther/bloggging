@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create Configuration{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto pt-3 flex gap-2 flex-col h-screen shadow p-5 mt-5">
+  <div>
+  <h2 class="text-gray-800 text-lg font-bold">Create Configuration</h2>
+    {{ form(formCreateConfiguration) }}
+  </div>
+</div>
+
+{% endblock %}

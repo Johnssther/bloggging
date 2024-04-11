@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
+
+  {# Breadcrumbs #}
+    {{ breadcrumbs.breadcrumbs([
+        {'label': 'Home', 'url': path('app_home')},
+        {'label': 'Posts'}
+    ]) }}
+  {# \breadcrumbs #}
+  <hr  class="mb-3"/>
+
+    <div class="w-full flex justify-end items-end">
+      <a href="{{ path('post_create') }}" class="bg-green-500 hover:bg-green-700 text-white text-sm py-1 px-2 rounded">
+          <i class="fa-solid fa-plus"></i>
+          Crear Post
+        </a>
+    </div>
+    <div class="w-full flex">
+       <div class="w-full">
+        <label class="block text-gray-700 text-sm font-bold" for="search">
+          Status
+        </label>
+        <select name="status" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5">
+          <option value="" disabled selected>Choose a status</option>
+          <option value="draft">Draft</option>
+          <option value="published">Published</option>
+          <option value="scheduled">Scheduled</option>
+          <option value="locked">Locked</option>
+          <option value="archived">Archived</option>
+          <option value="hidden">Hidden</option>
+        </select>
+      </div>
+    </div>
+
+  {# <div class="w-full grid grid-cols-1 gap-3">
+    {% for post in posts %}
+        <a href="{{ path('post_show', {'slug': post.getSlug()}) }}">
+          <div class="bg-white rounded-md p-2 h-full hover:cursor-pointer hover:shadow-lg relative">
+            <img src="{{ post.getUrl() }}" class="h-56 w-full object-cover border border-gray-100"></img>
+            <p class="text-xs text-gray-400 mt-1">Fecha de Publicación: {{ post.creationDate|date('d/m/Y') }}</p>
+            <h2 class="text-xl font-bold mb-3" title="{{ post.title }}">{{ post.title }}</h2>
+           
+            {% if post.status == 'draft' %}
+                <span class="bg-gray-200 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'published' %}
+                <span class="bg-green-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'scheduled' %}
+                <span class="bg-yellow-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'locked' %}
+                <span class="bg-red-800 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'archived' %}
+                <span class="bg-gray-700 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'hidden' %}
+                <span class="bg-gray-400 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+        </div>
+        </a>
+    {% endfor %}
+  </div> #}
+
+    <div class="w-full grid grid-cols-1 gap-3">
+    {% for post in posts %}
+        <a href="{{ path('post_show', {'slug': post.getSlug()}) }}">
+          <div class="bg-white rounded-md flex gap-2 p-2 h-full hover:cursor-pointer hover:shadow-lg shadow relative">
+            <img src="{{ post.getUrl() }}" class="h-28 w-40 object-cover border border-gray-100"></img>
+            <div class="w-full">
+              <p class="text-xs text-gray-400 mt-1">Fecha de Publicación: {{ post.creationDate|date('d/m/Y') }}</p>
+              <h2 class="text-xl font-bold mb-3" title="{{ post.title }}">{{ post.title }}</h2>
+              <p class="text-sm text-gray-400"> {{ post.description }} </p>
+              <p class="text-sm text-gray-600"><i>Author: {{ post.getUser().getName() }} </i></p>
+            
+              {% if post.status == 'draft' %}
+                  <p class="bg-gray-200 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
+              {% endif %}
+              {% if post.status == 'published' %}
+                  <p class="bg-green-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
+              {% endif %}
+              {% if post.status == 'scheduled' %}
+                  <p class="bg-yellow-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
+              {% endif %}
+              {% if post.status == 'locked' %}
+                  <p class="bg-red-800 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
+              {% endif %}
+              {% if post.status == 'archived' %}
+                  <p class="bg-gray-700 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
+              {% endif %}
+              {% if post.status == 'hidden' %}
+                  <p class="bg-gray-400 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 left-1 -rotate-45 shadow-lg">{{ post.status }}</p>
+              {% endif %}
+
+              <div class="w-full flex justify-end mt-2">
+               <a href="{{ path('post_edit', {'id': post.getId()}) }}" class="bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                  Edit Post
+                </a>
+              </div>
+            </div>
+        </div>
+        </a>
+    {% endfor %}
+  </div>
+
+
+</div>
+
+{% endblock %}

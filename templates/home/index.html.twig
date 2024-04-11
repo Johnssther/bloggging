@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col h-screen">
+
+  <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-lg font-semibold mb-4">Post Statistics</h2>
+      <div class="grid grid-cols-4 gap-4">
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Total Posts</h3>
+              <p class="text-3xl font-bold text-yellow-500">{{ stadistics['published'] + stadistics['draft'] + stadistics['scheduled'] + stadistics['locked'] + stadistics['archived'] + stadistics['hidden'] }}</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Published Posts</h3>
+              <p class="text-3xl font-bold text-green-500">{{ stadistics['published'] }}</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Draft Posts</h3>
+              <p class="text-3xl font-bold text-yellow-500">{{ stadistics['draft'] }}</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Scheduled Posts</h3>
+              <p class="text-3xl font-bold text-yellow-500">{{ stadistics['scheduled'] }}</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Locked Posts</h3>
+              <p class="text-3xl font-bold text-yellow-500">{{ stadistics['locked'] }}</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Archived Posts</h3>
+              <p class="text-3xl font-bold text-yellow-500">{{ stadistics['archived'] }}</p>
+          </div>
+          <div class="bg-gray-100 p-4 rounded-lg">
+              <h3 class="text-gray-600 font-semibold">Hidden Posts</h3>
+              <p class="text-3xl font-bold text-yellow-500">{{ stadistics['hidden'] }}</p>
+          </div>
+          <!-- Agrega más bloques de estadísticas según sea necesario -->
+      </div>
+      <!-- Agrega más estilos y estadísticas según sea necesario -->
+  </div>
+
+</div>
+
+{% endblock %}

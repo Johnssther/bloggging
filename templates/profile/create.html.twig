@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto pt-3 flex gap-2 flex-col h-screen shadow p-5 mt-5">
+  <div>
+  <h2 class="text-gray-800 text-lg font-bold">Crear Usuario</h2>
+    {{ form_start(formCreateProfile) }}
+      <div class="flex flex-col">
+         <div class="flex gap-3">
+            <div class="flex flex-col w-full">
+                {{ form_row(formCreateProfile.name) }}
+            </div>
+            <div class="flex flex-col w-full">
+                {{ form_row(formCreateProfile.last_name) }}
+            </div>
+        </div>
+        {{ form_row(formCreateProfile.email) }}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="w-full">
+                {{ form_row(formCreateProfile.password) }}
+            </div>
+            {# <div class="w-full">
+                {{ form_row(formCreateProfile.confirm_password) }}
+            </div> #}
+        </div>
+      </div>
+    {{ form_end(formCreateProfile) }}
+  </div>
+</div>
+
+{% endblock %}

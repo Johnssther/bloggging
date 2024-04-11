@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
+
+  {# Breadcrumbs #}
+    {{ breadcrumbs.breadcrumbs([
+        {'label': 'Home', 'url': path('app_home')},
+        {'label': 'Posts'}
+    ]) }}
+  {# \breadcrumbs #}
+  <hr  class="mb-3"/>
+
+    <div class="w-full flex justify-end items-end">
+      
+    </div>
+  <div class="w-full grid grid-cols-2 gap-3">
+    {% for post in posts %}
+        <a href="{{ path('post_show', {'slug': post.getSlug()}) }}">
+          <div class="bg-white rounded-md p-2 h-full hover:cursor-pointer hover:shadow-lg relative">
+            <img src="{{ post.getUrl() }}" class="h-56 w-full object-cover border border-gray-100"></img>
+            {% if post.diferenciaHoras <= 12 %}
+              <p class="text-xs text-gray-400 mt-1">{{ post.creationDate|date('H:m:s') }}</p>
+            {% else %}
+              <p class="text-xs text-gray-400 mt-1">{{ post.creationDate|date('Y/m/d H:m:s') }}</p>
+            {% endif %}
+            
+            <h2 class="text-xl font-bold mb-3" title="{{ post.title }}">{{ post.title }}</h2>
+
+            {% if post.status == 'draft' %}
+                <span class="bg-gray-200 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+
+            {% if post.diferenciaHoras <= 12 %}
+              {% if post.status == 'published' %}
+                  <span class="bg-green-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">New Post</span>
+              {% endif %}
+            {% endif %}
+
+            {% if post.status == 'scheduled' %}
+                <span class="bg-yellow-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'locked' %}
+                <span class="bg-red-800 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'archived' %}
+                <span class="bg-gray-700 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'hidden' %}
+                <span class="bg-gray-400 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+        </div>
+        </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}

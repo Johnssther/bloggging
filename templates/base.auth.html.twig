@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.2.1/classic/ckeditor.js"></script>
+
+        <style>
+            p {
+                color: #4b5563;
+            }
+            strong {
+                color: #111827;
+                font-weight: bold;
+            }
+            i {
+                color: #111827;
+            }
+           
+        </style>
+    </head>
+    <body class="bg-white">
+
+        <div class="">
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+</html>

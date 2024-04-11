@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post{% endblock %}
+
+{% block content %}
+
+<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
+
+
+    <div class="w-full flex justify-end items-end">
+      
+    </div>
+    {% if posts|length < 1 %}
+      <div class="w-full h-full flex justify-center items-center shadow p-4 rounded-lg">
+        <p class="text-2xl text-gray-500 font-bold">There are no publications made</p>
+      </div>
+    {% endif %}
+  <div class="w-full grid grid-cols-2 gap-3">
+    {% for post in posts %}
+        <a href="{{ path('blog_show', {'slug': post.getSlug()}) }}">
+          <div class="bg-white rounded-md p-2 h-full hover:cursor-pointer hover:shadow-lg relative">
+            <img src="{{ post.getUrl() }}" class="h-56 w-full object-cover border border-gray-100"></img>
+            <div class="flex justify-between gap-2">
+              <p class="text-xs text-gray-400 mt-1"><i>Author: {{ post.getUser().getName() }}</i></p>
+              {% if post.diferenciaHoras <= 12 %}
+                <p class="text-xs text-gray-400 mt-1"><i>{{ post.creationDate|date('H:m') }}</i></p>
+              {% else %}
+                <p class="text-xs text-gray-400 mt-1"><i>{{ post.creationDate|date('Y/m/d H:m') }}</i></p>
+              {% endif %}
+            </div>
+
+            <h2 class="text-xl font-bold mb-3" title="{{ post.title }}">{{ post.title }}</h2>
+
+            {% if post.status == 'draft' %}
+                <span class="bg-gray-200 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+
+            {% if post.diferenciaHoras <= 12 %}
+              {% if post.status == 'published' %}
+                  <span class="bg-green-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">New Post</span>
+              {% endif %}
+            {% endif %}
+
+            {% if post.status == 'scheduled' %}
+                <span class="bg-yellow-500 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'locked' %}
+                <span class="bg-red-800 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'archived' %}
+                <span class="bg-gray-700 text-white p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+            {% if post.status == 'hidden' %}
+                <span class="bg-gray-400 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
+            {% endif %}
+        </div>
+        </a>
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
