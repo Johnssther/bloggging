@@ -23,7 +23,7 @@
         .ck-content > figure,
         .ck-content > p,
         .ck-content > pre {
-        margin: revert;
+            margin: revert;
         }
 
         .ck-content > ol,
@@ -59,6 +59,9 @@
             max-width: 80%;
             margin: 20px auto;
         }
+        .ck-content > ul > li {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -66,10 +69,10 @@
 
 {% import 'footer.html.twig' as footer %}
 
-<header class="w-full h-14 bg-white shadow-md flex justify-between items-center px-3">
+<header class="w-full h-auto bg-white shadow-md flex flex-col md:flex-row justify-between items-center px-3">
     <a href="{{path('welcome_post_published')}}"><p class="text-bold tracking-wider text-xl">Blog</p></a>
     {% if app.user %}
-     <div class="flex w-1/4 justify-center items-center gap-3">
+     <div class="flex w-1/2 justify-center items-center gap-3 flex-wrap">
         <a href="{{ path('app_home') }}" class="hover:text-green-500 hover:font-bold flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base">
           <i class="fa-solid fa-house"></i><p>Home</p>
         </a>

@@ -67,10 +67,14 @@ class Post
     #[ORM\Column]
     private ?int $views = null;
 
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
+    private Collection $post_tag;
+
     public function __construct()
     {
         $this->interactions = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->post_tag = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -306,6 +310,30 @@ class Post
     public function setViews(int $views): static
     {
         $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Tag>
+     */
+    public function getPostTag(): Collection
+    {
+        return $this->post_tag;
+    }
+
+    public function addPostTag(Tag $postTag): static
+    {
+        if (!$this->post_tag->contains($postTag)) {
+            $this->post_tag->add($postTag);
+        }
+
+        return $this;
+    }
+
+    public function removePostTag(Tag $postTag): static
+    {
+        $this->post_tag->removeElement($postTag);
 
         return $this;
     }

@@ -15,7 +15,7 @@
         <p class="text-2xl text-gray-500 font-bold">There are no publications made</p>
       </div>
     {% endif %}
-  <div class="w-full grid grid-cols-2 gap-3">
+  <div class="w-full grid md:grid-cols-2 gap-3">
     {% for post in posts %}
         <a href="{{ path('blog_show', {'slug': post.getSlug()}) }}">
           <div class="bg-white rounded-md p-2 h-full hover:cursor-pointer hover:shadow-lg relative">
@@ -30,6 +30,7 @@
             </div>
 
             <h2 class="text-xl font-bold mb-3" title="{{ post.title }}">{{ post.title }}</h2>
+            <p class="text-sm text-gray-500">{{ post.getDescription() }}</p>
 
             {% if post.status == 'draft' %}
                 <span class="bg-gray-200 text-gray-700 p-1 rounded-md text-sm w-28 text-center absolute top-12 right-3 rotate-45 shadow-lg">{{ post.status }}</span>
