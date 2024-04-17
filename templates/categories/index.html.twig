@@ -6,15 +6,65 @@
 
 {% import 'breadcrumbs.html.twig' as breadcrumbs %}
 
+<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col min-h-screen">
 
-<div class="max-w-4xl mx-auto p-3 flex gap-2 flex-col">
+  <div class="flex">
+      {# Breadcrumbs #}
+        {{ breadcrumbs.breadcrumbs([
+            {'label': 'Home', 'url': path('app_home')},
+            {'label': 'Posts'}
+        ]) }}
+      {# \breadcrumbs #}
+      <div class="w-full flex justify-end items-end">
+        <a href="{{ path('category_create') }}" class="bg-green-500 hover:bg-green-700 text-white text-sm py-1 px-2 rounded">
+            <i class="fa-solid fa-plus"></i>
+            Create Category
+        </a>
+      </div>
 
- 
-
-  <div class="w-full bg-white rounded-lg overflow-hidden p-2">
-      <p>Categories</p>
   </div>
-
+       <table class="w-full text-sm text-left text-gray-500 whitespace-no-wrap">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    descripcion
+                </th>
+                 <th scope="col" class="px-6 py-3">
+                    color
+                </th>
+                <th>
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+            <tr class="bg-white border-b">
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
+                    <p>{{ category.getName()}}</p>
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
+                    <p>{{ category.getDescription()}}</p>
+                </th>
+                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
+                    <p>{{ category.getColor()}}</p>
+                </th>
+                <th>
+                    <div class="flex gap-1">
+                        <button title="Aprove Comment" class="text-blue-500 hover:text-blue-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-edit"></i></button>
+                        <button title="Remove Comment" class="text-green-600 hover:text-green-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-eye"></i></button>
+                        <form action="{{ path('category_delete', {'id': category.getId()}) }}" method="post" style="display: inline;">
+                            <button title="Remove Comment" class="text-red-500 hover:text-red-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-trash"></i></button>                           
+                        </form>
+                    </div>
+                </th>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
 </div>
 

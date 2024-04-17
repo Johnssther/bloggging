@@ -18,7 +18,35 @@
   {# \breadcrumbs #}
   </div>
   <div class="w-full bg-white rounded-lg p-3 flex flex-col gap-2">
-  {# <p>{{ post is defined ? 'Edit' : 'Create' }} Post</p> #}
+  <p>{{ post is defined ? 'Edit' : 'Create' }} Post</p>
+
+<ol class="flex items-center">
+    <li class="relative w-full mb-6">
+        <div class="flex items-center">
+            <div class="z-10 flex items-center justify-center w-6 h-6 bg-blue-600 rounded-full ring-0 ring-white darkkkk:bg-blue-900 sm:ring-8 darkkkk:ring-gray-900 shrink-0">
+                <svg class="w-2.5 h-2.5 text-blue-100 darkkkk:text-blue-300" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                </svg>
+            </div>
+            <div class="flex w-full bg-gray-200 h-0.5 darkkkk:bg-gray-700"></div>
+        </div>
+        <div class="mt-3">
+            <h3 class="font-medium text-gray-900 darkkkk:text-white">Step 1: Create Post</h3>
+        </div>
+    </li>
+    <li class="relative w-full mb-6">
+        <div class="flex items-center">
+            <div class="z-10 flex items-center justify-center w-6 h-6 {{ post is defined ? 'bg-blue-600' : 'bg-gray-200' }} rounded-full ring-0 ring-white darkkkk:bg-gray-700 sm:ring-8 darkkkk:ring-gray-900 shrink-0">
+                <svg class="w-2.5 h-2.5 {{ post is defined ? 'text-blue-100' : 'text-gray-900' }} darkkkk:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 12">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5.917 5.724 10.5 15 1.5"/>
+                </svg>
+            </div>
+        </div>
+        <div class="mt-3">
+            <h3 class="font-medium text-gray-900 darkkkk:text-white">Step 2: Create Content Post</h3>
+        </div>
+    </li>
+</ol>
 
 
       {% if post is defined %}
@@ -30,37 +58,20 @@
 
               <div>
       {% if post is defined %}
-      {# <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded">
+      <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded">
       <i class="fa-regular fa-paper-plane"></i>
       Enviar
-      </button> #}
+      </button>
       
       {% else %}
           <button type="submit" class="mt-3 bg-blue-500 hover:bg-blue-700 text-white text-sm py-1 px-2 rounded">Continuar</button>
       {% endif %}
       </div>
-      
       <div>
-        <label class="block text-gray-700 text-sm font-bold" for="title">Title</label>
-        <input name="title" id="title" type="text" value="{{ post.title ?? '' }}" placeholder="Title" class=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input>
-      </div>
-      
-
-      {% if post is defined %}
-       <div>
-        <textarea name="content" id="content" placeholder="Content" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ post.content ?? '' }}</textarea>
-      </div>
-      {% else %}
-
-      {% endif %}
-
-      <hr>
-      <div class="w-full flex gap-2">
-        <div class="w-full">
         <label class="block text-gray-700 text-sm font-bold" for="username">
           Status
         </label>
-        <select name="status" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+        <select name="status" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/4 p-2.5">
           <option value="draft" selected>Draft</option>
           <option value="published">Published</option>
           <option value="scheduled">Scheduled</option>
@@ -69,17 +80,9 @@
           <option value="hidden">Hidden</option>
         </select>
       </div>
-      <div class="w-full">
-        <label class="block text-gray-700 text-sm font-bold" for="username">
-          Category
-        </label>
-        <select name="category" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
-          <option value="select" selected>select</option>
-              {% for category in categories %}
-                <option value="{{ category.getId()  }}">{{ category.getName() }}</option>
-              {% endfor %}
-        </select>
-      </div>
+      <div>
+        <label class="block text-gray-700 text-sm font-bold" for="title">title</label>
+        <input name="title" id="title" type="text" value="{{ post.title ?? '' }}" placeholder="Title" class=" appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input>
       </div>
       <div>
         <label class="block text-gray-700 text-sm font-bold" for="description">Descriptión</label>
@@ -99,6 +102,15 @@
         <label class="block text-gray-700 text-sm font-bold" for="url">Url Imagen principal</label>
         <input name="url" id="url" type="text" value="{{ post.url ?? '' }}" placeholder="Url" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></input>
       </div>
+
+      {% if post is defined %}
+       <div>
+        <label class="block text-gray-700 text-sm font-bold mb-2" for="bodypost">Content</label>
+        <textarea name="content" id="content" placeholder="Content" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">{{ post.content ?? '' }}</textarea>
+      </div>
+      {% else %}
+
+      {% endif %}
 
       <div>
       {% if post is defined %}

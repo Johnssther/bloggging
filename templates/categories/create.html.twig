@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles del post
+{% endblock %}
+
+{% block content %}
+
+	{% import 'breadcrumbs.html.twig' as breadcrumbs %}
+
+	<div
+		class="max-w-4xl mx-auto pt-3 flex gap-2 flex-col h-screen shadow p-5 mt-5">
+		{# Breadcrumbs #}
+		{{ breadcrumbs.breadcrumbs([
+        {'label': 'Home', 'url': path('app_home')},
+        {'label': 'Categories', 'url': path('category_index')},
+        {'label': 'Create'}
+    ]) }}
+		{# \breadcrumbs #}
+		<div>
+			<h2 class="text-gray-800 text-lg font-bold">Create Category</h2>
+			{{ form(formCreateCategory) }}
+			{# {{ form_start(formCreateCategory) }}
+			      <div class="flex flex-col">
+			         <div class="flex gap-3">
+			            <div class="flex flex-col w-full">
+			                {{ form_row(formCreateCategory.name) }}
+			            </div>
+			            <div class="flex flex-col w-full">
+			                {{ form_row(formCreateCategory.last_name) }}
+			            </div>
+			        </div>
+			        {{ form_row(formCreateCategory.email) }}
+			        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+			            <div class="w-full">
+			                {{ form_row(formCreateCategory.password) }}
+			            </div>
+			            {# <div class="w-full">
+			                {{ form_row(formCreateCategory.confirm_password) }}
+			            </div> #}
+				{# </div>
+				      </div>
+				    {{ form_end(formCreateCategory) }} #}
+			</div>
+		</div>
+
+	{% endblock %}

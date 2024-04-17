@@ -38,13 +38,22 @@ class PostController extends AbstractController
     #[Route('/posts/create', name: 'post_create', methods: ['GET'])]
     public function create(): Response
     {
-        return $this->render('posts/create.html.twig');
+        $categories = $this->em->getRepository(Category::class)->findAll();
+
+        return $this->render('posts/create.html.twig', [
+            'categories' => $categories,
+        ]);
     }
 
     #[Route('/posts/{id}/edit', name: 'post_edit', methods: ['GET'])]
     public function edit(Post $post): Response
     {
-        return $this->render('posts/create.html.twig', ['post' => $post]);
+        $categories = $this->em->getRepository(Category::class)->findAll();
+
+        return $this->render('posts/create.html.twig', [
+            'categories' => $categories,
+            'post' => $post
+        ]);
     }
 
     #[Route('/posts', name: 'post_store', methods: ['POST'])]
@@ -56,7 +65,11 @@ class PostController extends AbstractController
 
         $user = $this->getUser();
         $user = $this->em->getRepository(User::class)->find($user->getId());
-        $category = $this->em->getRepository(Category::class)->find(1);
+        
+        $category = $this->em->getRepository(Category::class)->find($postData['category']);
+        if(!$category instanceof Category) {
+            dd('la categoria es obligatoria.');
+        }
 
         $post = new Post();
         $post->setTitle($postData['title']);
@@ -85,6 +98,11 @@ class PostController extends AbstractController
         $slug = $this->generateSlug($postData['title']);
         $arrayTags = explode(", ", $postData['tag']);
 
+        $category = $this->em->getRepository(Category::class)->find($postData['category']);
+        if(!$category instanceof Category) {
+            dd('la categoria es obligatoria.');
+        }
+
         $post->setTitle($postData['title']);
         $post->setDescription($postData['description']);
         $post->setUrl($postData['url']);
@@ -94,6 +112,7 @@ class PostController extends AbstractController
         $post->setType('opinion');
         $post->setCreationDate(new \DateTime());
         $post->setTags($arrayTags);
+        $post->setCategory($category);
 
         $this->em->persist($post);
         $this->em->flush();
