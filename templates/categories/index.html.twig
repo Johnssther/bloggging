@@ -21,50 +21,46 @@
             Create Category
         </a>
       </div>
-
   </div>
-       <table class="w-full text-sm text-left text-gray-500 whitespace-no-wrap">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+    <table id="table-categories" class="display" style="width:100%">
+        <thead>
             <tr>
-                <th scope="col" class="px-6 py-3">
-                    Name
-                </th>
-                <th scope="col" class="px-6 py-3">
-                    descripcion
-                </th>
-                 <th scope="col" class="px-6 py-3">
-                    color
-                </th>
-                <th>
-                    Actions
-                </th>
+                <th>Name</th>
+                <th>Dscripcion</th>
+                <th>Color</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             {% for category in categories %}
-            <tr class="bg-white border-b">
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
-                    <p>{{ category.getName()}}</p>
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
-                    <p>{{ category.getDescription()}}</p>
-                </th>
-                <th scope="row" class="px-6 py-4 font-medium text-gray-900 darkk:text-white">
-                    <p>{{ category.getColor()}}</p>
-                </th>
-                <th>
-                    <div class="flex gap-1">
-                        <button title="Aprove Comment" class="text-blue-500 hover:text-blue-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-edit"></i></button>
+                <tr>
+                    <td>{{ category.getName()}}</td>
+                    <td>{{ category.getDescription()}}</td>
+                    <td>{{ category.getColor()}}</td>
+                    <td>
+                        <a href="{{ path('category_edit', {'id': category.getId()}) }}" title="Edit Comment" class="text-blue-500 hover:text-blue-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-edit"></i></a>
                         <button title="Remove Comment" class="text-green-600 hover:text-green-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-eye"></i></button>
                         <form action="{{ path('category_delete', {'id': category.getId()}) }}" method="post" style="display: inline;">
                             <button title="Remove Comment" class="text-red-500 hover:text-red-700 bg-gray-200 text-sm py-1 px-2 rounded"><i class="fa-solid fa-trash"></i></button>                           
                         </form>
                     </div>
-                </th>
-            </tr>
+                    </td>
+                </tr>
             {% endfor %}
         </tbody>
-    </table>
+        <tfoot>
+            <tr>
+                <th>Name</th>
+                <th>Dscripcion</th>
+                <th>Color</th>
+                <th>Actions</th>
+            </tr>
+        </tfoot>
+</table>
+
+<script>
+    new DataTable('#table-categories');
+</script>
 
 </div>
 

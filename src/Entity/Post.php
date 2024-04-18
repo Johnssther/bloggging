@@ -70,6 +70,9 @@ class Post
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
     private Collection $post_tag;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $excerpt = null;
+
     public function __construct()
     {
         $this->interactions = new ArrayCollection();
@@ -334,6 +337,18 @@ class Post
     public function removePostTag(Tag $postTag): static
     {
         $this->post_tag->removeElement($postTag);
+
+        return $this;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(?string $excerpt): static
+    {
+        $this->excerpt = $excerpt;
 
         return $this;
     }

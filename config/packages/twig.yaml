@@ -1,5 +1,6 @@
 twig:
     file_name_pattern: '*.twig'
+    # tailwind_2_layout.html.twig
     form_themes: ['tailwind_2_layout_custom.html.twig']
 
 when@test:
