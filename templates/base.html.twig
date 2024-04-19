@@ -127,13 +127,14 @@
     </div> #}
     <div class="w-full flex flex-col justify-center items-center h-auto mb-7 mt-3 bg-slate-800">
     {% if app.user %}
-        <img class="w-20 h-2w-20 mx-auto rounded-full" src="{{ app.user.getUrlProfile() }}" alt="{{ app.user.getName() }}">
+        <img class="w-20 h-20 mx-auto rounded-full" src="{{ app.user.getUrlProfile() }}" alt="{{ app.user.getName() }}">
         <div class="flex gap-1 justify-center items-center my-3">
             <div class="h-2 w-2 rounded-full bg-green-500"></div>
             <p class="text-gray-200 text-xs">online</p>
         </div>
-        <p class="text-gray-200 text-base">{{ app.user.name }} {{ app.user.getLastName() }}</p>
-        <span class="text-gray-200 text-xs">{{ app.user.email }}</span>
+        <p class="text-gray-200 text-base">{{ app.user.name }}</p>
+        <p class="text-gray-200 text-sm">{{ app.user.getLastName() }}</p>
+        <span class="text-gray-400 text-xs">{{ app.user.email }}</span>
     {% else %}
     {% endif %}
     </div>

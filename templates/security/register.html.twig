@@ -1,0 +1,48 @@
+{% extends 'base.auth.html.twig' %}
+
+{% block title %}Detalles del post
+{% endblock %}
+
+{% block content %}
+
+
+	<section class="w-full bg-gray-50 mx-auto flex darkkkkk:bg-gray-900">
+		<div class="flex flex-col items-center w-full md:w-6/12 justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<a
+				href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 darkkkkk:text-white">
+				{# <img class="w-8 h-8 mr-2" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/logo.svg" alt="logo"> #}
+				<p class="text-yellow-500">Blog</p>
+			</a>
+			<div class="w-full bg-white rounded-lg shadow darkkkkk:border md:mt-0 sm:max-w-md xl:p-0 darkkkkk:bg-gray-800 darkkkkk:border-gray-700">
+				<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+					<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl darkkkkk:text-white">
+						Register your account
+					</h1>
+                        {{ form_start(formCreateProfile) }}
+                            <div class="flex flex-col">
+                                <div class="flex gap-3">
+                                    <div class="flex flex-col w-full">
+                                        {{ form_row(formCreateProfile.name) }}
+                                    </div>
+                                    <div class="flex flex-col w-full">
+                                        {{ form_row(formCreateProfile.last_name) }}
+                                    </div>
+                                </div>
+                                {{ form_row(formCreateProfile.email) }}
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    <div class="w-full">
+                                        {{ form_row(formCreateProfile.password) }}
+                                    </div>
+                                    {# <div class="w-full">
+                                        {{ form_row(formCreateProfile.confirm_password) }}
+                                    </div> #}
+                                </div>
+                            </div>
+                            {{ form_end(formCreateProfile) }}
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+{% endblock %}

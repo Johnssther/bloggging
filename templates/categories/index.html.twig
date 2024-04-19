@@ -22,6 +22,12 @@
         </a>
       </div>
   </div>
+  {% for message in app.flashes('success') %}
+        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4" role="alert">
+            <p class="font-bold">Message</p>
+            <p>{{ message }}</p>
+        </div>
+  {% endfor %}
     <table id="table-categories" class="display" style="width:100%">
         <thead>
             <tr>
@@ -60,6 +66,17 @@
 
 <script>
     new DataTable('#table-categories');
+
+    $.ajax({
+        type: 'GET',
+        url: 'http://127.0.0.1:8000/categories',
+        data: ({id: '1'}),
+        async: true,
+        dataType: 'json',
+        success: function(data) {
+            console.log(data);
+        }
+    })
 </script>
 
 </div>

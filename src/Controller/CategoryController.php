@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\CategoryType;
 use App\Entity\Category;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
  
 class CategoryController extends AbstractController
 {
@@ -19,10 +20,15 @@ class CategoryController extends AbstractController
         $this->em = $em;
     }
 
-    #[Route('/categories', name: 'category_index')]
-    public function index(): Response
+    #[Route('/categories', name: 'category_index', options: ["expose" => true]) ]
+    public function index(Request $request): Response
     {
         $categories = $this->em->getRepository(Category::class)->findAll();
+
+        if($request->isXmlHttpRequest()) {
+            $categories = $this->em->getRepository(Category::class)->findAll();
+            return new JsonResponse(['data' => [], 'success' => true]);
+        }
 
         return $this->render('categories/index.html.twig', [
             'categories' => $categories,
@@ -43,6 +49,7 @@ class CategoryController extends AbstractController
             $this->em->persist($category);
             $this->em->flush($category);
 
+            $this->addFlash('success', 'La categoria se guardo correctamente!');
             return $this->redirectToRoute('category_index');
         }
 

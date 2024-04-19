@@ -35,6 +35,8 @@
             <p><span class="font-semibold">Roles:</span> {{user.getRoles()|join(', ')}}</p>
             <p><span class="font-semibold">Posts Realizados:</span> {{user.getPosts()|length}}</p>
           </div>
+          <a href="{{ path('profile_edit', {'id': user.getId()}) }}" title="Edit account" class="text-blue-500 hover:text-blue-700 bg-gray-200 text-sm py-1 px-2 rounded">Edit Profile <i class="fa-solid fa-edit"></i></a>
+
           <a href="{{path('profile_create')}}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-full focus:outline-none focus:ring focus:ring-blue-200">Editar</a>
         </div>
       </div>
