@@ -1,0 +1,93 @@
+version: '3.9'
+services:
+  database: # mariadb
+    build:
+      context: .
+      dockerfile: mariadb.dockerfile
+    container_name: mariadb_svc
+    restart: always 
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: "root"
+      MYSQL_DATABASE: "custom_db"
+      MYSQL_ROOT_PASSWORD: "password"
+    volumes:
+      - shemas:/var/lib/mysql
+    networks:
+      app_network:
+        aliases:
+          - mariadb_host
+
+  backend: # php
+    build:
+      context: .
+      dockerfile: php.dockerfile
+    container_name: backend_svc
+    restart: always
+    ports:
+      - 80:80
+    volumes:
+      - /docker/webpage/www/:/var/www/html
+    depends_on:
+      - database
+    networks:
+      app_network:
+        aliases:
+          - backend_host
+
+  frontend: # react js 
+    build:
+      context: .
+      dockerfile: react.dockerfile
+    container_name: frontend_svc
+    restart: always
+    ports:
+      - 8088:80
+    networks:
+      app_network:
+        aliases:
+          - frontend_host
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8089:80"
+    environment:
+      PMA_HOST: mariadb_host # Nombre del servicio de MySQL en tu red de Docker
+      PMA_PORT: 3306
+    depends_on:
+      - database
+    networks:
+      app_network:
+        aliases:
+          - phpmyadmin_host
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      app_network:
+        aliases:
+          - mailhog_host
+volumes:
+  www: {}
+  shemas:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker/webpage/shemas_02305081121
+
+networks:
+  app_network:
+    name: app_net
+    driver: bridge
+    ipam: 
+      driver: default
