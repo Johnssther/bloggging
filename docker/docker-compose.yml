@@ -24,7 +24,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - /root/projects/blogging/:/var/www/html
+      - /root/projects/bloggging/:/var/www/html
     depends_on:
       - database
     networks:
