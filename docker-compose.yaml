@@ -10,7 +10,7 @@ services:
       - 3306:3306
     environment:
       MYSQL_DATABASE: custom_db
-      MYSQL_ROOT_PASSWORD: aXmm17%secret%8972
+      MYSQL_ROOT_PASSWORD: password
     volumes:
       - shemas_blogging:/var/lib/mysql
     networks:
@@ -50,6 +50,7 @@ services:
       app_network:
         aliases:
           - phpmyadmin_host
+
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
