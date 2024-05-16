@@ -1,0 +1,81 @@
+version: "3"
+
+services:
+  database:
+    build:
+      context: .
+      dockerfile: docker/mysql/Dockerfile
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: custom_db
+      MYSQL_ROOT_PASSWORD: aXmm17%secret%8972
+    volumes:
+      - shemas_blogging:/var/lib/mysql
+    networks:
+      app_network:
+        aliases:
+          - mysql_host
+
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - .:/var/www/symfony
+    expose:
+      - "9003"
+    ports:
+      - 8000:8000
+    depends_on:
+      - database
+    networks:
+      app_network:
+        aliases:
+          - php_host
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    restart: always
+    ports:
+      - "8089:80"
+    environment:
+      PMA_HOST: mysql_host # Nombre del servicio de MySQL en tu red de Docker
+      PMA_PORT: 3306
+    depends_on:
+      - database
+    networks:
+      app_network:
+        aliases:
+          - phpmyadmin_host
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
+    restart: always
+    logging:
+      driver: none
+    ports:
+      - "1025:1025"
+      - "8025:8025"
+    networks:
+      app_network:
+        aliases:
+          - mailhog_host
+
+volumes:
+  www: {}
+  shemas_blogging:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /docker/blogging/shemas_blogging
+
+networks:
+  app_network:
+    name: app_net
+    driver: bridge
+    ipam: 
+      driver: default
