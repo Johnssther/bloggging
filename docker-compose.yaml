@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: docker/mysql/Dockerfile
+    container_name: database
     restart: always
     ports:
       - 3306:3306
@@ -22,6 +23,7 @@ services:
     build:
       context: .
       dockerfile: docker/php/Dockerfile
+    container_name: php
     volumes:
       - .:/var/www/symfony
     expose:
